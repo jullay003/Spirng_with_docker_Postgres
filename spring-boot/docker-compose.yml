@@ -1,0 +1,24 @@
+#version: '3.8'
+services:
+  db:
+    container_name: postgres
+    image: postgres:17
+    environment:
+      TZ: Asia/Kolkata
+      POSTGRES_USER: jullay_spring
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5332:5432"
+    restart: unless-stopped
+    networks:
+      - app-network  # Connected to custom network
+
+volumes:
+  db:
+
+networks:
+  app-network:  # Custom network definition
+    driver: bridge
